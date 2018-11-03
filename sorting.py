@@ -1,4 +1,4 @@
-def merge_sort(arr, cb=lambda a, b : a < b):
+def msort(arr, cb=lambda a, b: a < b):
     arr_len = len(arr)
     if arr_len <= 1:
         return arr
@@ -7,7 +7,7 @@ def merge_sort(arr, cb=lambda a, b : a < b):
     left = arr[:middle]
     right = arr[middle:]
 
-    return _merge(merge_sort(left, cb), merge_sort(right, cb), cb)
+    return _merge(msort(left, cb), msort(right, cb), cb)
 
 
 def _merge(left, right, cb):
@@ -22,7 +22,7 @@ def _merge(left, right, cb):
     return merged + left + right
 
 
-def quick_sort(arr, cb=lambda a, b : a < b):
+def qsort(arr, cb=lambda a, b: a < b):
     arr_len = len(arr)
     if arr_len == 0:
         return []
@@ -40,4 +40,5 @@ def quick_sort(arr, cb=lambda a, b : a < b):
             left.append(val)
         else:
             right.append(val)
-    return quick_sort(left, cb) + [pivot] + quick_sort(right, cb)
+
+    return qsort(left, cb) + [pivot] + qsort(right, cb)

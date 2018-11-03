@@ -1,26 +1,28 @@
 import unittest
 import random
 
-from sorting import merge_sort, quick_sort
+from sorting import msort, qsort
+
 
 class TestSortingFunctions(unittest.TestCase):
-    def test_merge_sort(self):
+    def test_msort(self):
         arr = [random.randint(0, 1000) for i in range(100)]
-        self.assertEqual(sorted(arr), merge_sort(arr))
+        self.assertEqual(sorted(arr), msort(arr))
 
-    def test_merge_sort_cb(self):
+    def test_msort_cb(self):
         arr = [random.randint(0, 1000) for i in range(100)]
-        cb = lambda a, b : a > b
-        self.assertEqual(list(reversed(sorted(arr))), merge_sort(arr, cb))
+        cb = lambda a, b: a > b
+        self.assertEqual(list(reversed(sorted(arr))), msort(arr, cb))
 
-    def test_quick_sort(self):
+    def test_qsort(self):
         arr = [random.randint(0, 1000) for i in range(100)]
-        self.assertEqual(sorted(arr), quick_sort(arr))
+        self.assertEqual(sorted(arr), qsort(arr))
 
-    def test_quick_sort_cb(self):
+    def test_qsort_cb(self):
         arr = [random.randint(0, 1000) for i in range(100)]
-        cb = lambda a, b : a > b
-        self.assertEqual(list(reversed(sorted(arr))), quick_sort(arr, cb))
+        cb = lambda a, b: a > b
+        self.assertEqual(list(reversed(sorted(arr))), qsort(arr, cb))
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()
