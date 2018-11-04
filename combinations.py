@@ -23,15 +23,3 @@ def permutations(arr):
 
 def combinations(arr, comb_len):
     return [i for i in pset(arr) if len(i) == comb_len]
-    # arr_len = len(arr)
-    # combos = []
-    # for i in range(arr_len):
-    #     combo = [arr[i]]
-    #     j = (i + 1) % arr_len
-    #     while True:
-    #         if len(combo) == comb_len:
-    #             break
-    #         combo.append(arr[j])
-    #         j = (j + 1) % arr_len
-    #     combos.append(combo)
-    # return combos
