@@ -26,7 +26,5 @@ class TestCombinationFunctions(unittest.TestCase):
         combos = combinations(arr, 3)
         sans = [sorted(list(el)) for el in ans]
         scombos = [sorted(el) for el in combos]
-        print(sans)
-        print(scombos)
         self.assertTrue(all(el in scombos for el in sans))
         self.assertTrue(all(el in sans for el in scombos))

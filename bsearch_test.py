@@ -11,6 +11,7 @@ class TestBinarySearch(unittest.TestCase):
             idx = random.randint(0, len(arr) - 1)
             target = arr[idx]
             result = bsearch(arr, target)
+            print(target)
             self.assertEqual(result, idx)
 
     def test_bsearch_negative(self):

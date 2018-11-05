@@ -20,7 +20,8 @@ def bsearch(arr, target, cb=_bsearch_cb):
     elif result == 0:
         return probe
     elif result == 1:
-        sub_result = bsearch(arr[probe:], target)
-        if sub_result:
-            return sub_result + probe
+        start = probe + 1
+        sub_result = bsearch(arr[start:], target)
+        if sub_result is not None:
+            return sub_result + start
         return sub_result
