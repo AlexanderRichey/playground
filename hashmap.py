@@ -1,3 +1,6 @@
+from functools import reduce
+
+
 class HashMap:
     def __init__(self, len=32):
         self.store = [[None, None] for _ in range(len)]
@@ -37,7 +40,4 @@ class HashMap:
         return self._hash(k) % len(self.store)
 
     def _hash(self, k):
-        hash = 0
-        for char in k:
-            hash = hash ^ ord(char)
-        return hash
+        return reduce(lambda acc, chr: acc ^ ord(chr), k, 0)
