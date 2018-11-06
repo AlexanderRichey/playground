@@ -23,3 +23,21 @@ def permutations(arr):
 
 def combinations(arr, comb_len):
     return [i for i in pset(arr) if len(i) == comb_len]
+
+
+def rotate(arr, degree):
+    pivot = degree % len(arr)
+    return arr[pivot:] + arr[:pivot]
+
+
+def flatten(arr, level=0):
+    flattened = []
+    for el in arr:
+        if isinstance(el, list):
+            if level > 0:
+                flattened.append(flatten(el, level - 1))
+            else:
+                flattened.extend(flatten(el))
+        else:
+            flattened.append(el)
+    return flattened

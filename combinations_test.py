@@ -2,7 +2,9 @@ import unittest
 import itertools
 import random
 
-from combinations import pset, permutations, combinations
+from combinations import (
+    pset, permutations, combinations, rotate, flatten
+)
 
 
 class TestCombinationFunctions(unittest.TestCase):
@@ -28,3 +30,14 @@ class TestCombinationFunctions(unittest.TestCase):
         scombos = [sorted(el) for el in combos]
         self.assertTrue(all(el in scombos for el in sans))
         self.assertTrue(all(el in sans for el in scombos))
+
+    def test_rotate(self):
+        arr = [i for i in range(10)]
+        ans = [5, 6, 7, 8, 9, 0, 1, 2, 3, 4]
+        self.assertEqual(rotate(arr, 5), ans)
+
+    def test_flatten(self):
+        arr = [[1], [[[3, 4], 5]], 5]
+        self.assertEqual(flatten(arr), [1, 3, 4, 5, 5])
+        self.assertEqual(flatten(arr, 1), [[1], [3, 4, 5], 5])
+        self.assertEqual(flatten(arr, 3), [[1], [[[3, 4], 5]], 5])
