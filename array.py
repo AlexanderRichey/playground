@@ -46,12 +46,27 @@ def flatten(arr: list, level: int = 0) -> list:
     return flattened
 
 
+def first_index(arr: list, cb: Callable[[Any], bool]) -> int:
+    for i, v in enumerate(arr):
+        if cb(v):
+            return i
+    return -1
+
+
 def select(arr: list, cb: Callable[[Any], bool]) -> list:
     return [i for i in arr if cb(i)]
 
 
+def select_indicies(arr: list, cb: Callable[[Any], bool]) -> list:
+    return [i for i, v in enumerate(arr) if cb(v)]
+
+
 def reject(arr: list, cb: Callable[[Any], bool]) -> list:
     return [i for i in arr if not cb(i)]
+
+
+def reject_indicies(arr: list, cb: Callable[[Any], bool]) -> list:
+    return [i for i, v in enumerate(arr) if not cb(v)]
 
 
 def all(arr: list, cb: Callable[[Any], bool]) -> bool:
