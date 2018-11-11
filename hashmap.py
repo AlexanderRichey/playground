@@ -1,38 +1,52 @@
 from functools import reduce
+from linkedlist import LinkedList
 
 
 class HashMap:
     def __init__(self, len=32):
-        self.store = [[None, None] for _ in range(len)]
+        self.store = [LinkedList() for _ in range(len)]
+
+    def __len__(self):
+        length = 0
+        for i in self.keys():
+            length += 1
+        return length
+
+    def __contains__(self, k):
+        try:
+            self.get(k)
+        except LookupError:
+            return False
+        return True
 
     def get(self, k):
         idx = self._to_idx(k)
-        if self.store[idx][0] != k:
+        ll = self.store[idx]
+        found = ll.find(cb=lambda data, _: data[0] == k)
+        if not found:
             raise LookupError(f"'{k}' is not present")
-        return self.store[idx][1]
+        return found.data[1]
 
     def put(self, k, v):
         idx = self._to_idx(k)
-        if self.store[idx][0] and self.store[idx][0] != k:
-            raise LookupError(f"'{k}' creates hashing collision")
+        ll = self.store[idx]
+        found = ll.find(cb=lambda data, _: data[0] == k)
+        if found:
+            found.data[1] = v
         else:
-            self.store[idx][0] = k
-            self.store[idx][1] = v
+            ll.add([k, v])
         return True
 
     def remove(self, k):
-        try:
-            idx = self._to_idx(k)
-            self.store[idx][0] = None
-            self.store[idx][1] = None
-        except IndexError:
-            raise LookupError(f"'{k}' is not present")
+        idx = self._to_idx(k)
+        ll = self.store[idx]
+        ll.remove(cb=lambda data, _: data[0] == k)
         return True
 
     def keys(self):
-        for pair in self.store:
-            if pair[0]:
-                yield pair[0]
+        for node in self.store:
+            for val in node:
+                yield val[0]
             else:
                 continue
 

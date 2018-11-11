@@ -9,9 +9,7 @@ class TestHashMap(unittest.TestCase):
 
     def test_put(self):
         self.map.put("key", "value")
-        self.assertTrue(
-            any(node[0] == "key" and node[1] == "value" for node in self.map.store)
-        )
+        self.assertTrue("key" in self.map)
 
     def test_get(self):
         self.map.put("key", "value")
@@ -25,9 +23,7 @@ class TestHashMap(unittest.TestCase):
     def test_remove(self):
         self.map.put("key", "value")
         self.map.remove("key")
-        self.assertFalse(
-            any(node[0] == "key" and node[1] == "value" for node in self.map.store)
-        )
+        self.assertFalse("key" in self.map)
 
     def test_keys(self):
         keys = [n for n in range(10)]
@@ -35,3 +31,11 @@ class TestHashMap(unittest.TestCase):
             k = str(n)
             self.map.put(k, n)
         self.assertEqual(set(list(self.map.keys())), set([str(k) for k in keys]))
+
+    def test_len(self):
+        self.assertEqual(len(self.map), 0)
+        self.map.put("test", "cool")
+        self.map.put("test", "what")
+        self.assertEqual(len(self.map), 1)
+        self.map.put("whoa", "what")
+        self.assertEqual(len(self.map), 2)

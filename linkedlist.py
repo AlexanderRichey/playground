@@ -37,36 +37,36 @@ class LinkedList:
             else:
                 node.next = LinkNode(data)
 
-    def remove(self, data):
+    def remove(self, data=None, cb=lambda a, b: a == b):
         node = self.head
         if not node:
             return False
-        if node.data == data:
-            if not node.next:
-                raise ValueError("No other node can be head")
+        if cb(node.data, data):
             self.head = node.next
             return True
         while node.next:
-            if node.next.data == data:
+            if cb(node.next.data, data):
                 removed = node.next
                 node.next = node.next.next
+                removed.next = None
                 return removed
             node = node.next
         return False
 
-    def find(self, data):
+    def find(self, data=None, cb=lambda a, b: a == b):
         node = self.head
         while node:
-            if node.data == data:
+            if cb(node.data, data):
                 return node
             node = node.next
         return False
 
     def poll(self):
-        if not self.head.next:
-            raise ValueError("No other node can be head")
+        if not self.head:
+            return
         removed = self.head
-        self.head = self.head.next
+        self.head = removed.next
+        removed.next = None
         return removed
 
     def pop(self):
@@ -96,3 +96,9 @@ class LinkedList:
     @property
     def is_empty(self):
         return self.size > 0
+
+    def __iter__(self):
+        node = self.head
+        while node:
+            yield node.data
+            node = node.next

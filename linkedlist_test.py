@@ -22,6 +22,20 @@ class TestLinkedList(unittest.TestCase):
         self.ll.remove(5)
         self.assertFalse(self.ll.find(5))
 
+    def test_remove_with_cb(self):
+        self.ll.add(["hello"])
+        self.ll.add({})
+
+        def finder(data, _):
+            try:
+                data[0] == "hello"
+            except Exception:
+                pass
+            return False
+
+        self.ll.remove(cb=finder)
+        self.assertFalse(self.ll.find(cb=finder))
+
     def test_find(self):
         self.assertEqual(self.ll.find(0).data, 0)
         self.assertEqual(self.ll.find(1).data, 1)
@@ -41,3 +55,9 @@ class TestLinkedList(unittest.TestCase):
         self.assertEqual(self.ll.size, 10)
         self.ll.pop()
         self.assertEqual(self.ll.size, 9)
+
+    def test_iter(self):
+        out = []
+        for val in self.ll:
+            out.append(val)
+        self.assertListEqual(out, list(range(10)))
