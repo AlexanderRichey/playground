@@ -21,18 +21,39 @@ class BinaryTree:
                     if node.right:
                         queue.append(node.right)
                     else:
-                        node.right = BinaryTreeNode(data)
+                        node.right = BinaryTreeNode(data, node)
                 else:
                     if node.left:
                         queue.append(node.left)
                     else:
-                        node.left = BinaryTreeNode(data)
+                        node.left = BinaryTreeNode(data, node)
 
     def remove(self, data):
         pass
 
-    def dfs(self, data):
-        pass
+    def dfs(self, target, node=None):
+        if not node:
+            node = self.root
+        if node.data == target:
+            return node
+        elif node.data > target:
+            if node.right:
+                return dfs(target, node.right)
+        elif node.data < target:
+            if node.left:
+                return dfs(target, node.left)
+        return None
 
-    def bfs(self, data):
-        pass
+    def bfs(self, target):
+        queue = [self.root]
+        while len(queue):
+            node = queue.pop(0)
+            if node.data == target:
+                return node
+            elif node.data > target:
+                if node.right:
+                    queue.append(node.right)
+            else:
+                if node.left:
+                    queue.append(node.left)
+        return None
