@@ -26,7 +26,7 @@ class PolyTree:
             return node
         else:
             for child in node.children:
-                value = dfs(data, child)
+                value = self.dfs(data, child)
                 if value:
                     return value
         return None
